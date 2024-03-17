@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 import time
-
 #  Функция, с помощью которой получаем полностью прогруженный HTML документ
 def get_source_html(url):
     options = webdriver.ChromeOptions()
@@ -40,8 +39,8 @@ def get_source_html(url):
         driver.close()
         driver.quit()
 
-#  Функция, с помощью которой читаем полученный HTML документ и получаем/выводим данные о ценах
-def parse(file_path):
+#  Функция, с помощью которой читаем полученный HTML документ и возвращаем данные с 1 страницы
+def get_html_info(file_path):
     with open(file_path, encoding="utf-8") as file:
         src = file.read()
 
@@ -55,7 +54,15 @@ def parse(file_path):
         prices_arr.append(int(price))
 
     return prices_arr
-    #avg_price = sum(prices_arr) / len(prices_arr)
-    #min_price = min(prices_arr)
-    #max_price = max(prices_arr)
-    #print(f'Минимальная цена:{min_price}, Средняя цена:{avg_price:.3f}, Максимальная цена: {max_price}')
+
+# Функция, которая загружает несколько страниц и выводит общие данные по всем страницам
+def parse(n):
+    total_prices = []
+    for i in range(1, n + 1):
+        get_source_html(f"https://www.eldorado.ru/c/smartfony/b/APPLE?page={i}")
+        total_prices = total_prices + get_html_info("source-page.html")
+
+    avg_price = sum(total_prices) / len(total_prices)
+    min_price = min(total_prices)
+    max_price = max(total_prices)
+    print(f'Минимальная цена:{min_price}, Средняя цена:{avg_price:.3f}, Максимальная цена: {max_price}')
