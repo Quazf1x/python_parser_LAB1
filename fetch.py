@@ -19,7 +19,9 @@ def get_source_html(url):
         count_scroll = 0
 
         while True:
-            show_more = driver.find_element(By.CLASS_NAME, "Yq")
+            # как показала практика - эльдорадо часто меняют классы на своем сайте,
+            # так что к моменту проверки данной лабораторной работы парсер может тут поломаться :(
+            show_more = driver.find_element(By.CLASS_NAME, "vy")
             if count_scroll < 3:
                 #  Листаем вниз с интервалом в 2 секунды
                 actions = ActionChains(driver)
