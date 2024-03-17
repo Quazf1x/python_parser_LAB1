@@ -54,7 +54,8 @@ def parse(file_path):
         price = data.text.replace('руб.', '').replace(' ', '')
         prices_arr.append(int(price))
 
-    avg_price = sum(prices_arr) / len(prices_arr)
-    min_price = min(prices_arr)
-    max_price = max(prices_arr)
-    print(f'Минимальная цена:{min_price}, Средняя цена:{avg_price:.3f}, Максимальная цена: {max_price}')
+    return prices_arr
+    #avg_price = sum(prices_arr) / len(prices_arr)
+    #min_price = min(prices_arr)
+    #max_price = max(prices_arr)
+    #print(f'Минимальная цена:{min_price}, Средняя цена:{avg_price:.3f}, Максимальная цена: {max_price}')
